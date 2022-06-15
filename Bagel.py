@@ -57,7 +57,7 @@ while game_running:
     print("I have thought up a number.")
     print(f"You have {MAX_GUESSES} guesses to get it right.")
     getSecretNum()
-    # print(secretNum)
+    # print(secretNum)  #un-comment for testing purposes
     while GUESS_NUM < (MAX_GUESSES + 1):
         getGuess()
         if guess == secretNum:
