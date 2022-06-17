@@ -102,3 +102,4 @@ while game_running:
             # End the game
             game_running = False
 print("exiting...")
+input()
