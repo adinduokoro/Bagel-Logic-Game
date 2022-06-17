@@ -55,41 +55,50 @@ clues would be Fermi Pico.
 ---------------------------------------------------------------------''')
 while game_running:
     print("I have thought up a number.")
-    print(f"You have {MAX_GUESSES} guesses to get it right.")
+    print(f'You have {MAX_GUESSES} guesses to get it right (Type "000" to quit).')
     getSecretNum()
     # print(secretNum)  #un-comment for testing purposes
     while GUESS_NUM < (MAX_GUESSES + 1):
         getGuess()
-        if guess == secretNum:
-            print("You got it correct!")
-            print(f"The secret number was [{secretNum}]")
+        if guess == "000":  # If the user enters "000" program ends
             break
-        elif guess != secretNum:
-            for i in range(NUM_DIGITS):
-                if guess[i] == secretNum[i]:  # check for matching spot
-                    clue.append("Fermi")
-                elif guess[i] in secretNum:  # check to see if number is in secretNum
-                    clue.append("Pico")
-            if len(clue) != 0:  # Sort the clues in order to not give away the answer
-                clue.sort()
-                clue = " ".join(clue)
-                print(clue)
-            if len(clue) == 0:
-                print("Bagel")
-        # RESET
-        resetClue()
-        guess = ""
-        GUESS_NUM += 1
-    # Ask the user if they want to continue playing the game
-    print(f">>>You ran out of guesses. The secret number was [{secretNum}].")
-    response = input(">>>Do you want to play again? (YES/NO): ").upper()
-    if response == "YES":
-        print()
-        # MASTER RESET
-        guess = ""
-        secretNum = ""
-        GUESS_NUM = 1
-        game_running = True
+        else:
+            if guess == secretNum:
+                print("You got it correct!")
+                print(f"The secret number was [{secretNum}]")
+                break
+            elif guess != secretNum:
+                for i in range(NUM_DIGITS):
+                    if guess[i] == secretNum[i]:  # check for matching spot
+                        clue.append("Fermi")
+                    elif guess[i] in secretNum:  # check to see if number is in secretNum
+                        clue.append("Pico")
+                if len(clue) != 0:  # Sort the clues in order to not give away the answer
+                    clue.sort()
+                    clue = " ".join(clue)
+                    print(clue)
+                if len(clue) == 0:
+                    print("Bagel")
+            # RESET
+            resetClue()
+            guess = ""
+            GUESS_NUM += 1
+    if guess == "000":
+        # Goodbye prompt when quitting the game
+        print(f"The secret number was [{secretNum}]. \n\t\t\t\t\tGoodbye =]")
+        break
     else:
-        game_running = False
+        # Ask the user if they want to continue playing the game if they win or lose
+        print(f">>>You ran out of guesses. The secret number was [{secretNum}].")
+        response = input(">>>Do you want to play again? (YES/NO): ").upper()
+        if response == "YES":
+            # MASTER RESET
+            print()
+            guess = ""
+            secretNum = ""
+            GUESS_NUM = 1
+            game_running = True
+        else:
+            # End the game
+            game_running = False
 print("exiting...")
