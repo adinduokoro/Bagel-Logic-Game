@@ -20,8 +20,8 @@ def getSecretNum():
 
     number = list("0123456789")
     random.shuffle(number)
-    for j in range(NUM_DIGITS):
-        secretNum += number[j]
+    secretNum = number[:3]
+    secretNum = "".join(secretNum)
 
 
 # Gets a valid guess from the user
